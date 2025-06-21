@@ -8,7 +8,8 @@ import ReactPlayer from "react-player";
 import { ORIGINAL_IMG_BASE_URL, SMALL_IMG_BASE_URL } from "../utils/constants";
 import { formatReleaseDate } from "../utils/dateFunction";
 import WatchPageSkeleton from "../components/skeletons/WatchPageSkeleton";
-
+import {useAuthStore } from "../store/authUser";
+import { api} from "../utils/axios";
 const WatchPage = () => {
 	const { id } = useParams();
 	const [trailers, setTrailers] = useState([]);
