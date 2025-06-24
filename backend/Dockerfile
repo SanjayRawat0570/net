@@ -9,5 +9,6 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["npm", "dev"]
+CMD ["npm", "run", "dev"]
+
 
