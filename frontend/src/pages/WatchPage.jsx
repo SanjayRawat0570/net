@@ -10,6 +10,9 @@ import { formatReleaseDate } from "../utils/dateFunction";
 import WatchPageSkeleton from "../components/skeletons/WatchPageSkeleton";
 import {useAuthStore } from "../store/authUser";
 import { api} from "../utils/axios";
+const BASE_URL = import.meta.env.VITE_API_URL;
+
+
 const WatchPage = () => {
 	const { id } = useParams();
 	const [trailers, setTrailers] = useState([]);
@@ -24,7 +27,9 @@ const WatchPage = () => {
 	useEffect(() => {
 		const getTrailers = async () => {
 			try {
-				const res = await axios.get(`/api/v1/${contentType}/${id}/trailers`);
+				const res = await axios.get(`${BASE_URL}/api/v1/${contentType}/${id}/trailers`,{
+				withCredentials:true,
+			});
 				setTrailers(res.data.trailers);
 			} catch (error) {
 				if (error.message.includes("404")) {
@@ -39,7 +44,7 @@ const WatchPage = () => {
 	useEffect(() => {
 		const getSimilarContent = async () => {
 			try {
-				const res = await axios.get(`/api/v1/${contentType}/${id}/similar`);
+				const res = await axios.get(`${BASE_URL}/api/v1/${contentType}/${id}/similar`);
 				setSimilarContent(res.data.similar);
 			} catch (error) {
 				if (error.message.includes("404")) {
@@ -54,7 +59,7 @@ const WatchPage = () => {
 	useEffect(() => {
 		const getContentDetails = async () => {
 			try {
-				const res = await axios.get(`/api/v1/${contentType}/${id}/details`);
+				const res = await axios.get(`${BASE_URL}/api/v1/${contentType}/${id}/details`);
 				setContent(res.data.content);
 			} catch (error) {
 				if (error.message.includes("404")) {

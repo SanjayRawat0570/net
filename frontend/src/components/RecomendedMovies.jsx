@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "../store/authUser";
 import { api } from "../utils/axios";
 import { Link } from "react-router-dom";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 const RecommendedMovies = () => {
   const { user } = useAuthStore();
   const [movies, setMovies] = useState([]);
 
   const fetchRecommendations = async () => {
     try {
-      const res = await api.get(`/users/${user._id}/recommendations`);
+      const res = await api.get(`${BASE_URL}/users/${user._id}/recommendations`,{
+				withCredentials:true,
+			});
       setMovies(res.data);
     } catch (err) {
       console.error("Failed to fetch recommendations:", err);

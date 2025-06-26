@@ -7,6 +7,8 @@ import axios from "axios";
 import { ORIGINAL_IMG_BASE_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const SearchPage = () => {
 	const [activeTab, setActiveTab] = useState("movie");
 	const [searchTerm, setSearchTerm] = useState("");
@@ -23,7 +25,7 @@ const SearchPage = () => {
 	const handleSearch = async (e) => {
 		e.preventDefault();
 		try {
-			const res = await axios.get(`/api/v1/search/${activeTab}/${searchTerm}`);
+			const res = await axios.get(`${BASE_URL}/api/v1/search/${activeTab}/${searchTerm}`);
 			setResults(res.data.content);
 		} catch (error) {
 			if (error.response.status === 404) {

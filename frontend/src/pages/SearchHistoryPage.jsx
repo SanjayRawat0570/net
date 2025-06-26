@@ -5,6 +5,8 @@ import { SMALL_IMG_BASE_URL } from "../utils/constants";
 import { Trash } from "lucide-react";
 import toast from "react-hot-toast";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 function formatDate(dateString) {
 	// Create a Date object from the input date string
 	const date = new Date(dateString);
@@ -26,7 +28,7 @@ const SearchHistoryPage = () => {
 	useEffect(() => {
 		const getSearchHistory = async () => {
 			try {
-				const res = await axios.get(`/api/v1/search/history`);
+				const res = await axios.get(`${BASE_URL}/api/v1/search/history`);
 				setSearchHistory(res.data.content);
 			} catch (error) {
 				setSearchHistory([]);
@@ -37,7 +39,7 @@ const SearchHistoryPage = () => {
 
 	const handleDelete = async (entry) => {
 		try {
-			await axios.delete(`/api/v1/search/history/${entry.id}`);
+			await axios.delete(`${BASE_URL}/api/v1/search/history/${entry.id}`);
 			setSearchHistory(searchHistory.filter((item) => item.id !== entry.id));
 		} catch (error) {
 			toast.error("Failed to delete search item");

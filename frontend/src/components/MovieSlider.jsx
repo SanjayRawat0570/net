@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { SMALL_IMG_BASE_URL } from "../utils/constants";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const MovieSlider = ({ category }) => {
 	const { contentType } = useContentStore();
@@ -18,7 +19,9 @@ const MovieSlider = ({ category }) => {
 
 	useEffect(() => {
 		const getContent = async () => {
-			const res = await axios.get(`/api/v1/${contentType}/${category}`);
+			const res = await axios.get(`${BASE_URL}/api/v1/${contentType}/${category}`,{
+				withCredentials:true,
+			});
 			setContent(res.data.content);
 		};
 
