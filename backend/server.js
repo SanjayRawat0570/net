@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
+import dotenv from "dotenv";
 
 import authRoutes from "./routes/auth.route.js";
 import movieRoutes from "./routes/movie.route.js";
@@ -39,14 +40,14 @@ app.use(cookieParser());
 // CORS (adjust origin for production frontend)
 app.use(
   cors({
-    origin: "https://frontend-dev-latest.onrender.com", // frontend domain
-    credentials: true, // allow cookies/auth headers
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
   })
 );
 
 // API Routes
 app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/movie", protectRoute, movieRoutes);
+app.use("/api/v1/movie", movieRoutes);
 app.use("/api/v1/tv", protectRoute, tvRoutes);
 app.use("/api/v1/search", protectRoute, searchRoutes);
 app.use("/api/v1/watch", protectRoute, userRoutes);
@@ -54,7 +55,7 @@ app.use("/api/v1/watch", protectRoute, userRoutes);
 // Removed frontend static serving (since served separately)
 
 // Server listener
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log(`Environment: ${NODE_ENV}`);

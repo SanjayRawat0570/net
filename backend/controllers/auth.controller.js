@@ -8,6 +8,7 @@ const generateTokenAndSetCookie = (userId, res) => {
   const token = jwt.sign({ userId }, ENV_VARS.JWT_SECRET, {
     expiresIn: "7d",
   });
+  console.log(token);
 
   res.cookie("jwt-netflix", token, {
     httpOnly: true,
